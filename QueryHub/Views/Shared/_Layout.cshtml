@@ -1,0 +1,138 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Project.Models
+@using Project.Data;
+@using System.Linq;
+@inject UserManager<AppUser> UserManager
+@inject SignInManager<AppUser> SignInManager
+@inject Project.Data.ApplicationDbContext _context
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - QueryHub</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Project.styles.css" asp-append-version="true" />
+    <link rel="icon" href="/logo.png" type="image/png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
+
+</head>
+<body>
+    <header>
+        @if (ViewData["Title"] != "Log in" && ViewData["Title"] != "Register") {
+            <nav class="navbar navbar-expand-lg navbar-toggleable-md navbar-light bg-white border-bottom box-shadow mb-3">
+                <div class="container-fluid">
+                    <a class="navbar-brand d-flex align-items-center" href="/Home/Index">
+                        <img src="/logo.png" alt="QueryHub" height="40">
+                        <span class="ms-2" style="color:#0198cf; font-size: 1.5rem;">QueryHub</span>
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+                    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item mx-3">
+                                <a class="nav-link @(ViewData["Title"] == "Home" ? "active" : "")" href="/Home/Index">Home</a>
+                            </li>
+                            <li class="nav-item mx-3">
+                                <a class="nav-link @(ViewData["Title"] == "Questions" ? "active" : "")" href="/Question/Index">Questions</a>
+                            </li>
+                            <li class="nav-item mx-3">
+                                <a class="nav-link @(ViewData["Title"] == "Tags" ? "active" : "")" href="/Tag/Index">Tags</a>
+                            </li>
+                            <li class="nav-item mx-3">
+                                <a class="nav-link @(ViewData["Title"] == "Users" ? "active" : "")" href="/User/Index">Users</a>
+                            </li>
+                            <li class="nav-item mx-3">
+                                <a class="nav-link @(ViewData["Title"] == "About" ? "active" : "")" href="/About/Index">About</a>
+                            </li>
+                        </ul>
+
+
+                        <partial name="_LoginPartial" />
+                    </div>
+                </div>
+            </nav>
+        }
+    </header>
+    <div class="container-fluid">
+
+        <div class="container-fluid mb-5 mx-0">
+            <div class="row my-4 position-relative justify-content-center">
+
+                @* --- LEFT SIDEBAR --- *@
+                @if (SignInManager.IsSignedIn(User) && ViewData["Title"] != "About")
+                {
+                    var currentUser = await UserManager.GetUserAsync(User);
+                    if (currentUser != null)
+                    {
+                        <div class="px-0 col-lg-2 d-none d-lg-block">
+                            <div class="card shadow-sm w-100 mb-4">
+                                <div class="card-body bg-light">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <i class="bi bi-person-circle fs-2 me-2"></i>
+                                        <div>
+                                            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
+                                                <h5 class="mb-0">@currentUser.UserName</h5>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <p class="mb-1">Rating: @currentUser.Rating</p>
+                                    @* <p>Max Streak: @currentUser.Streak</p> *@
+                                </div>
+                            </div>
+
+                            <div class="py-4 mt-4 mx-1 d-flex flex-column justify-content-center bg-light rounded border shadow-sm">
+                                <div class="w-100 ps-2 mt-4" style="height:50vh">
+                                    <p class="mb-3 py-2 border-bottom"><i class="bi bi-question-circle"></i><a asp-controller="Question" asp-action="Index" asp-route-user=@currentUser.UserName class="text-dark text-decoration-none text-center ms-3">Queries Asked</a></p>
+                                    <p class="mb-3 py-2 border-bottom"><i class="bi bi-chat-dots"></i><a asp-controller="Question" asp-action="Index" asp-route-ansUser=@currentUser.UserName class="text-dark text-decoration-none text-center ms-3">Answers Posted</a></p>
+                                    @* <p class="mb-3 py-2 border-bottom"><i class="bi bi-bookmark"></i><a asp-controller="Question" asp-action="Index" class="text-dark text-decoration-none text-center ms-3">Saved Queries</a></p> *@
+                                    <p class="mb-3 py-2 border-bottom"><i class="bi bi-gear"></i><a class="text-dark text-decoration-none text-center ms-3" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Settings</a></p>
+                                    @{
+                                        var isOwner = User.HasClaim(c => c.Type == "Owner" && c.Value == "true");
+                                    }
+
+                                    @if (isOwner)
+                                    {
+                                        <p class="mb-3 py-2 border-bottom"><i class="bi bi-graph-up"></i><a asp-controller="Home" asp-action="Owner" class="text-dark text-decoration-none text-center ms-3">Statistics</a></p>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+
+                @* --- MAIN CONTENT --- *@
+                <div class="col-lg-8 col-12">
+                    <main role="main" class="pb-3">
+                        @RenderBody()
+                    </main>
+                </div>
+
+                @if (ViewData["Title"] != "Log in" && ViewData["Title"] != "Register" && ViewData["Title"] != "About")
+                {
+                    @await Component.InvokeAsync("TopRated")
+                }
+            </div>
+        </div>
+
+    @if (ViewData["Title"] != "Log in" && ViewData["Title"] != "Register")
+    {
+        <footer class="border-top footer text-muted position-relative">
+            <div class="container">
+                &copy; 2025 - Project - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </div>
+        </footer>
+    }
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+   
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

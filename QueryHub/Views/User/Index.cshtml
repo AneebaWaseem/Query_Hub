@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Users";
+}
+
+@model List<AppUser>
+<div class="row d-flex flex-wrap mx-3">
+    @foreach (AppUser u in Model)
+    {
+        <div class="mt-4 col-lg-4 col-md-6 col-sm-12">
+            <div class="card shadow-sm rounded-border">
+                <div class="card-body bg-light fs-10">
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="bi bi-person-circle text-dark fs-3"></i>
+                        <h5 class="mt-3">@u.UserName</h5>
+                    </div>
+                    <p class="mb-0">Rating: @u.Rating</p>
+                    @* <p>Max Streak: @u.Streak</p> *@
+                </div>
+            </div>
+        </div>
+    }
+</div>

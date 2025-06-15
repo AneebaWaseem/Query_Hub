@@ -1,0 +1,23 @@
+﻿@{
+    ViewData["Title"] = "Tags";
+}
+
+@model List<Tag>
+<div class="container mt-4 px-4">
+    <h2 class="mb-4">Browse Tags</h2>
+    <div class="row">
+        @foreach (var tag in @Model)
+        {
+            <div class="col-md-4 mb-4">
+                <a href="/Question/Index?tag=@tag.Name" class="text-decoration-none text-dark">
+                    <div class="card border border-primary h-100 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title text-primary">@tag.Name</h5>
+                            <p class="card-text">@tag.Description</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,119 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+  /* position: relative; */
+  min-height: 100%;
+}
+
+.nav-link.active {
+  font-size: large;
+  color: #0198cf !important;
+}
+
+.btn-primary {
+  background-color: #0198cf !important;
+  border-color: #0198cf !important;
+}
+
+.btn-primary:hover {
+  background-color: #017aaa !important;
+  border-color: #017aaa !important;
+}
+
+.btn-outline-primary {
+  color: #0198cf !important;
+  border-color: #0198cf !important;
+}
+
+.btn-outline-primary:hover {
+  color: white !important;
+  background-color: #017aaa !important;
+  border-color: #017aaa !important;
+}
+
+.btn-check:checked+.btn-outline-primary {
+  color: white !important;
+  background-color: #0198cf !important;
+  border-color: #0198cf !important;
+  box-shadow: 0 0 0 0.2rem rgba(1, 152, 207, 0.25);
+}
+
+.truncated-desc {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tag-badge {
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  AppUser-select: none; 
+  }
+ 
+  .tag-badge:hover {
+  background-color: #017aaa !important;
+  color: white !important;
+  }
+ 
+  .tag-badge.active {
+  background-color: #0198cf !important;
+  color: white !important;
+  }
+
+  .typewriter {
+    display: inline-block;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 2px solid black; 
+    width: 0;
+    max-width: max-content;
+    animation: typing 3s steps(40, end) forwards;
+    position: relative;
+}
+
+       
+@keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+@keyframes blink {
+    50% { border-color: transparent; }
+}
+
+.typewriter.done {
+    border-right: none;
+}
+
+.btn-link:focus,
+        .btn-link:active {
+            outline: none; 
+            box-shadow: none; 
+        }

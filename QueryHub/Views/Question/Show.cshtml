@@ -1,0 +1,89 @@
+﻿@{
+    ViewData["Title"] = "Questions";
+}
+
+@model Question
+
+<div class="px-4">
+    <!-- Question card -->
+    <div class="mt-4 list-group-item p-3 bg-light fw-medium fs-5 shadow-sm">
+        <div class="d-flex justify-content-between align-items-center flex-wrap">
+            <div class="d-flex align-items-center">
+                <i class="bi bi-person-circle text-dark fs-5 me-2"></i>
+                <span class="fw-medium fs-6 mt-1">@Model.AppUser?.UserName</span>
+            </div>
+            <small class="text-muted fw-medium fs-6 mt-1">@Model.CreatedAt.ToString("MMM dd, yyyy")</small>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center">
+            <h6 class="mt-2" style="line-height: 1.6;">@Model.Description</h6>
+            <div class="d-flex align-items-center text-muted">
+                @if (User.Identity.Name == Model.AppUser.UserName || User.Identity.Name == "Owner")
+                {
+                    <a asp-controller="Question" asp-action="Delete" asp-route-id=@Model.Id><i class="bi bi-trash me-4 text-muted"></i></a>
+                }
+            </div>
+        </div>
+
+        <div class="d-flex flex-wrap mt-2">
+            @foreach (var tag in Model.Tags)
+            {
+                <span class="badge border border-primary bg-light text-primary fw-normal fs-6 me-1 mb-1">@tag.Name</span>
+            }
+        </div>
+    </div>
+
+    <!-- Answers -->
+    <div class="px-2 mt-4">
+        <h4>Answers</h4>
+        @if (Model.Answers != null && Model.Answers.Any())
+        {
+            foreach (var ans in Model.Answers)
+            {
+                <div class="border-bottom py-3" id="answer-@ans.Id">
+                    <div class="d-flex justify-content-between align-items-center flex-wrap">
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-person-circle text-dark fs-5 me-2"></i>
+                            <span class="fw-medium fs-6 mt-1">@ans.AppUser?.UserName</span>
+
+                        </div>
+
+                        <small class="text-muted fw-medium fs-6 mt-1 mx-3">@ans.CreatedAt.ToString("MMM dd, yyyy")</small>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <p class="mt-2" style="line-height: 1.6;">@ans.Description</p>
+                        <div class="d-flex align-items-center text-muted">
+                            @if (User.Identity.Name == ans.AppUser.UserName || User.Identity.Name == "Owner")
+                            {
+                                <i class="bi bi-trash mx-4 delete-btn" data-id=@ans.Id></i> 
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <p>No answers yet. Be the first to answer!</p>
+        }
+    </div>
+
+    <!-- Answer submission form -->
+    <div class="mt-5">
+        <form action="/Question/AnswerAdd" method="post" class="container mt-4">
+            <h4 class="mb-3 text-primary">Your Answer</h4>
+
+            <input type="hidden" name="questionId" id="qId" value="@Model.Id" />
+
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea id="description" name="description" class="form-control" rows="4" placeholder="Describe your answer..."></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary" id="sendButton">Submit</button>
+        </form>
+    </div>
+</div>
+
+<script src="~/lib/microsoft/signalr/dist/browser/signalr.js" asp-append-version="true"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>

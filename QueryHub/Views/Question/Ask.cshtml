@@ -1,0 +1,36 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Questions";
+}
+
+@model List<Tag>
+    <div class="px-3">
+    <form action="/Question/Asked" method="post" class="container mt-4">
+        <h3 class="mb-4 text-primary">Ask a Query</h3>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea id="description" name="description" class="form-control" rows="4" placeholder="Describe your query..."></textarea>
+        </div>
+
+    <div class="mb-3">
+        <label class="form-label">Select Tags</label>
+        <div class="d-flex flex-wrap">
+                @foreach (var tag in Model)
+                {
+                    <div class="form-check form-check-inline px-0 mb-2">
+                        <input class="btn-check" type="checkbox" name="tags" value="@tag.Name" id="tag-@tag.Name" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="tag-@tag.Name">@tag.Name</label>
+                    </div>
+                }
+
+        </div>
+        <small class="form-text text-muted d-block mt-1">You can select multiple tags</small>
+    </div>
+
+        <button type="submit" class="btn btn-primary">Ask</button>
+    </form>
+</div>
+

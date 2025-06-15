@@ -1,0 +1,62 @@
+﻿@model List<Project.Models.AppUser>
+
+<div class="d-none d-lg-block col-lg-2 px-0">
+    <div class="justify-content-center justify-content-lg-between align-items-center">
+
+        <!-- Did You Know? -->
+        <div>
+            <div class="card shadow-sm rounded-border mb-4">
+                <div class="card-body bg-light text-center">
+                    <h5 class="card-title mb-2">Did You Know?</h5>
+                    <p id="techFact">Loading...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Top Rated Users -->
+        <div class="card shadow-sm rounded-border">
+            <div class="card-body">
+                <h5 class="card-title mb-3">Top Rated Users</h5>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped mb-0 text-center rounded-border">
+                        <thead>
+                        <tr>
+                            <th class="fw-normal">#</th>
+                            <th class="fw-normal">User</th>
+                            <th class="fw-normal">Rating</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < Model.Count; i++)
+                        {
+                            <tr>
+                                <td>@(i + 1)</td>
+                                <td>@Model[i].UserName</td>
+                                <td>@Model[i].Rating</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<script>
+    const facts = [
+    "The first computer virus was called ‘Creeper’ and was created in 1971!",
+    "C++ was first released in 1985, and it’s still widely used!",
+    "Python was named after Monty Python, not the snake!",
+    "The first website ever created is still online at info.cern.ch!"
+    ];
+
+    function updateFact() {
+    document.getElementById("techFact").innerText = facts[Math.floor(Math.random() * facts.length)];
+    }
+
+    updateFact();
+    setInterval(updateFact, 10000);
+</script>

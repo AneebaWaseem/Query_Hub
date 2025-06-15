@@ -1,0 +1,108 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div class="d-flex min-vh-100">
+
+    <!-- Main Content -->
+    <main class="flex-grow-1 p-4">
+        <h1 class="mb-4">Dashboard Overview</h1>
+
+        <!-- Statistic Cards -->
+        <div class="row g-3 mb-4">
+            <div class="col-md-4">
+                <div class="card text-white bg-primary h-100">
+                    <div class="card-body">
+                        <h6 class="card-title">Total Users</h6>
+                        <h3>5</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-white bg-success h-100">
+                    <div class="card-body">
+                        <h6 class="card-title">Total Queries</h6>
+                        <h3>7</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-dark bg-warning h-100">
+                    <div class="card-body">
+                        <h6 class="card-title">Daily Active Users</h6>
+                        <h3>4</h3>
+                    </div>
+                </div>
+            </div>
+            @* <div class="col-md-3"> *@
+            @*     <div class="card text-white bg-danger h-100"> *@
+            @*         <div class="card-body"> *@
+            @*             <h6 class="card-title">Reported Content</h6> *@
+            @*             <h3>2</h3> *@
+            @*         </div> *@
+            @*     </div> *@
+            @* </div> *@
+        </div>
+
+        <!-- Users List -->
+        <div class="card mb-4">
+            <div class="card-header bg-white">
+                <h5 class="mb-0">Recent Users</h5>
+            </div>
+            <div class="card-body p-0">
+                <table class="table mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Joined</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Aneeba</td>
+                            <td>aneeba@gmail.com</td>
+                            <td>2025-05-20</td>
+                            <td><span class="badge bg-success">Active</span></td>
+                        </tr>
+                        <tr>
+                            <td>Fareha</td>
+                            <td>farehapagal6@gmail.com</td>
+                            <td>2025-05-19</td>
+                            <td><span class="badge bg-secondary">Inactive</span></td>
+                        </tr>
+                        <tr>
+                            <td>Noor</td>
+                            <td>noorlalli@gmail.com</td>
+                            <td>2025-05-18</td>
+                            <td><span class="badge bg-success">Active</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Recent Activities -->
+        <div class="card">
+            <div class="card-header bg-white">
+                <h5 class="mb-0">Recent Questions</h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <strong>Fareha</strong> asked a query <em>"What is regularization?"</em>.
+                        <div class="text-muted small">2 hours ago</div>
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Noor</strong> answered a query.
+                        <div class="text-muted small">5 hours ago</div>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+
+    </main>
+</div>

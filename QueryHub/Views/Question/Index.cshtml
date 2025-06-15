@@ -1,0 +1,51 @@
+﻿@{
+    ViewData["Title"] = "Questions";
+}
+
+@model List<Question>
+
+<div>
+    <div class="d-flex justify-content-between px-2">
+        <div class="mb-3">
+            <a asp-controller="Question" asp-action="Index" asp-route-tagName=".NET"><span class="badge fs-6 m-2 text-primary bg-white border border-primary tag-badge fw-normal">.NET</span></a>
+            <a asp-controller="Question" asp-action="Index" asp-route-tagName="Java"><span class="badge fs-6 m-2 text-primary bg-white border border-primary tag-badge fw-normal">Java</span></a>
+            <a asp-controller="Question" asp-action="Index" asp-route-tagName="C++"><span class="badge fs-6 m-2 text-primary bg-white border border-primary tag-badge fw-normal">C++</span></a>
+            <a asp-controller="Question" asp-action="Index" asp-route-tagName="C"><span class="badge fs-6 m-2 text-primary bg-white border border-primary tag-badge fw-normal">C</span></a>
+            <a asp-controller="Question" asp-action="Index" asp-route-tagName="Python"><span class="badge fs-6 m-2 text-primary bg-white border border-primary tag-badge fw-normal">Python</span></a>
+            <a asp-controller="Question" asp-action="Index" asp-route-tagName="C#"><span class="badge fs-6 m-2 text-primary bg-white border border-primary tag-badge fw-normal">C#</span></a>
+        </div>
+        <div><a asp-controller="Question" asp-action="Ask" class="btn btn-primary px-3 m-2">Ask a Query</a></div>
+    </div>
+
+    <div class="list-group px-3">
+        @foreach (Question question in Model)
+        {
+            <div class="mt-4 list-group-item py-3 bg-light fw-medium fs-5 shadow-sm">
+                <div class="d-flex justify-content-between align-items-center flex-wrap">
+                    <div class="d-flex align-items-center">
+                        <i class="bi bi-person-circle text-dark fs-5 me-2"></i>
+                        <span class="fw-medium fs-6 mt-1">@question.AppUser.UserName</span>
+                    </div>
+                    <small class="text-muted fw-medium fs-6 mt-1">@question.CreatedAt.ToString("MMM dd, yyyy")</small>
+                </div>
+
+                <a class="text-dark text-decoration-none" asp-controller="Question" asp-action="Show" asp-route-id="@question.Id"><h6 class="mt-2 truncated-desc" style=" line-height: 1.6;">@question.Description</h6></a>
+
+                <div class="d-flex justify-content-between align-items-center flex-wrap">
+                    <div class="mt-2">
+                        @{
+                            foreach (var st in question.Tags)
+                            {
+                                <span class="badge border border-primary bg-light text-primary fw-normal fs-6">@st.Name</span>
+                            }
+                        }
+                    </div>
+                    <div class="mt-2 d-flex justify-content-end">
+                        @* <a class=" btn btn-outline-primary text-decoration-none" asp-controller="Question" asp-action="Save" asp-route-id="@question.Id">Save Query</a> *@
+                        <a class="ms-2 btn btn-primary text-decoration-none" asp-controller="Question" asp-action="Show" asp-route-id="@question.Id">View Answers</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

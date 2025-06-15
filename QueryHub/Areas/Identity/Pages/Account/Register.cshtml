@@ -1,0 +1,92 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="m-4 h-75 col-sm-11 col-md-7 col-lg-6 col-xl-5 min-vw-75 h-auto min-vh-75 py-5 d-flex justify-content-center align-items-center bg-light rounded border shadow">
+        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="w-75 h-100">
+        <div class="my-3 text-center">
+            <img src="/logo.png" class="w-25 h-25 img-fluid" alt="Logo">
+            <h4 class="text-center mb-2">QueryHub</h4>
+        </div>
+
+        <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+
+        <div class="mb-3">
+            <label asp-for="Input.UserName" class="form-label">UserName</label>
+            <input asp-for="Input.UserName" type="text" class="form-control" placeholder="UserName" required />
+            <span asp-validation-for="Input.UserName" class="text-danger"></span>
+        </div>
+
+        <div class="mb-2">
+            <label asp-for="Input.Email" class="form-label">Email Address</label>
+            <input asp-for="Input.Email" type="email" class="form-control" placeholder="abc@gmail.com" required />
+            <span asp-validation-for="Input.Email" class="text-danger"></span>
+        </div>
+
+        <div class="mb-2">
+            <label asp-for="Input.Password" class="form-label">Password</label>
+            <div class="input-group">
+                <input asp-for="Input.Password" type="password" class="form-control" id="password" placeholder="••••••••" minlength="8" required />
+                <span class="input-group-text">
+                    <i class="bi bi-eye-slash" id="togglePassword" style="cursor: pointer;"></i>
+                </span>
+            </div>
+            <span asp-validation-for="Input.Password" class="text-danger"></span>
+        </div>
+
+        <div class="mb-2">
+            <label asp-for="Input.ConfirmPassword" class="form-label">Confirm Password</label>
+            <div class="input-group">
+                <input asp-for="Input.ConfirmPassword" type="password" class="form-control" id="confirmPassword" placeholder="••••••••" minlength="8" required />
+                <span class="input-group-text">
+                    <i class="bi bi-eye-slash" id="togglePasswordConfirm" style="cursor: pointer;"></i>
+                </span>
+            </div>
+            <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+        </div>
+
+        <div class="mb-2 text-center">
+            <button type="submit" class="btn btn-primary w-100">Sign Up</button>
+        </div>
+
+        <div class="mb-2 text-center">
+            <p>
+                Already have an account?
+                <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl" class="text-primary">Login</a>
+            </p>
+        </div>
+    </form>
+</div>
+</div>
+
+<script>
+    document.getElementById("togglePassword").addEventListener("click", function () {
+        let passwordInput = document.getElementById("password");
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            this.classList.replace("bi-eye-slash", "bi-eye");
+        } else {
+            passwordInput.type = "password";
+            this.classList.replace("bi-eye", "bi-eye-slash");
+        }
+    });
+
+    document.getElementById("togglePasswordConfirm").addEventListener("click", function () {
+        let confirmInput = document.getElementById("confirmPassword");
+        if (confirmInput.type === "password") {
+            confirmInput.type = "text";
+            this.classList.replace("bi-eye-slash", "bi-eye");
+        } else {
+            confirmInput.type = "password";
+            this.classList.replace("bi-eye", "bi-eye-slash");
+        }
+    });
+</script>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,34 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+
+    <!-- Main Content -->
+    <div class="container d-flex flex-column justify-content-center" style="min-height: 75vh;">
+        <div class="row flex-column-reverse flex-lg-row align-items-center text-center text-md-start">
+            <div id="guestView" class="container p-lg-5 p-md-3 p-sm-0 fs-4 col-sm-12 col-md-12 col-lg-7">
+                <h1 class="typewriter fs-1">Welcome to <span style="color: #0097cf;">QueryHub</span></h1>
+                <p class="fs-5">Your place to ask and answer questions.</p>
+                <p class="fs-6">
+                    Have a question? Get answers. Know something? Share your expertise. QueryHub is the go-to platform where curiosity meets knowledge. Whether you're tackling coding challenges, exploring new technologies, or seeking expert insights, QueryHub connects you with a community eager to help. Join us to ask, learn, and grow together!
+                </p>
+                <a asp-controller="Account" asp-action="Signup" class="btn btn-primary px-3">Get Started</a>
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-5 d-flex justify-content-center justify-md-start align-items-center">
+                <img src="~/logo.png" class="img-fluid w-75" alt="Logo">
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+@section Scripts{
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            setTimeout(() => {
+                document.querySelector(".typewriter").classList.add("done");
+            }, 3000); 
+        });
+    </script>
+}
+
+ 
